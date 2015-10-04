@@ -2,6 +2,7 @@
 #include "io.h"
 #include "matrix.impl.h"
 #include "worker.h"
+#include <chrono>
 
 int main(int argc, char** argv){
     int width, height;
@@ -20,8 +21,30 @@ int main(int argc, char** argv){
         }
     }
 
-    std::cout << *crossword << std::endl;
 
-    Worker work('a', crossword, visited);
+    auto start = std::chrono::high_resolution_clock::now();
+
+    //Worker work("threads", crossword);
+    Worker work1("threads", crossword);
+    Worker work2("arquivos", crossword);
+    Worker work3("sinais", crossword);
+    Worker work4("pipe", crossword);
+    Worker work5("processos", crossword);
+    Worker work6("mutex", crossword);
+
+    work1.join();
+    work2.join();
+    work3.join();
+    work4.join();
+    work5.join();
+    work6.join();
+
+    
+    auto end = std::chrono::high_resolution_clock::now();
+    auto elapsed = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+
+    std::cout << "took " << elapsed.count() << " microseconds." << std::endl;
+    
+    std::cout << *crossword << std::endl;
     return 0;
 }

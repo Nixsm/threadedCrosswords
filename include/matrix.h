@@ -21,14 +21,22 @@ public:
     bool valid(const Point2U& p) const;
     
     friend std::ostream& operator<<(std::ostream& os, const Matrix<T>& matrix) {
-        for (int i = 0; i < matrix._rows; ++i) {
-            for (int j = 0; j < matrix._cols; ++j) {
+        for (unsigned i = 0; i < matrix._rows; ++i) {
+            for (unsigned j = 0; j < matrix._cols; ++j) {
                 os << matrix._data.at(matrix._get2DIdx(i, j));
             }
             os << std::endl;
         }
 
         return os;
+    }
+
+    unsigned int rows() {
+        return _rows;
+    }
+
+    unsigned int cols() {
+        return _cols;
     }
 
 private:
