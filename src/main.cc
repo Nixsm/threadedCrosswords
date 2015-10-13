@@ -30,14 +30,18 @@ int main(int argc, char** argv){
     do {
         std::cout << "Numero de threads (Cada thread procura uma palavra)" << std::endl;
         std::cin >> numThreads;
-    } while (!(numThreads < words.size() && numThreads > 0));
+    } while (!(numThreads - 1 < words.size() && numThreads > 0));
 
     auto start = std::chrono::high_resolution_clock::now();
-
+    
     for (auto i = 0u; i <= words.size() - numThreads; i+=numThreads) {
         for (auto j = i; j < i + numThreads; ++j) {
+
+            std::cout << j << " ";
             workers.push_back(std::make_shared<Worker>(words.at(j), crossword));
         }
+
+        std::cout << std::endl;
 
         
         for (auto& worker : workers) {
@@ -45,6 +49,18 @@ int main(int argc, char** argv){
         }
 
         workers.clear();
+    }
+
+    if (numThreads > words.size() / 2) {
+        for (auto i = numThreads; i < words.size(); ++i) {
+            std::cout << i << "";
+            workers.push_back(std::make_shared<Worker>(words.at(i), crossword));
+        }
+        std::cout << std::endl;
+    }
+
+    for (auto& worker : workers) {
+        worker->join();
     }
     
     auto end = std::chrono::high_resolution_clock::now();
