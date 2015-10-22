@@ -23,7 +23,9 @@ int main(int argc, char** argv){
     
     unsigned int numThreads;
 
-    std::vector<std::string> words = {"threads", "arquivos", "sinais", "pipe", "processos", "mutex"};
+//    std::vector<std::string> words = {"threads", "arquivos", "sinais", "pipe", "processos", "mutex"};
+
+	std::vector<std::string> words = {"deadlock", "escalonamento", "threads", "processo", "linux", "windows", "produtor", "consumidor", "pronto", "bloqueado", "executando", "ocioso"};
 
     std::vector<std::shared_ptr<Worker> > workers;
     

@@ -89,6 +89,7 @@ void Worker::work() {
                                     auto toUpper = _crossword->get(pos);
                                     _crossword->set(pos, std::toupper(toUpper));
                                 }
+                                std::cout << "Found it! " << _search << std::endl; 
                             }
                             letters.clear();
 
